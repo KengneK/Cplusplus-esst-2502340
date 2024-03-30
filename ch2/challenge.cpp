@@ -4,6 +4,8 @@
 #include <sstream>
 #include <array>
 
+int b  = 0;
+
 constexpr int numRows = 4;
 constexpr int numCols = 4;
 
