@@ -7,6 +7,8 @@
 constexpr int numRows = 4;
 constexpr int numCols = 4;
 
+int d = 4;
+
 std::array< std::array<float, numCols>, numRows > matrix;
 
 int main()
