@@ -6,11 +6,22 @@
 
 #include <iomanip> // für Manip über Flux
 #include <numeric> // für accumulate 
+#include <algorithm> // für foreach
 
 constexpr int numRows = 4;
 constexpr int numCols = 4;
 
 std::array< std::array<float, numCols>, numRows > matrix;
+
+template<typename T, std::size_t SIZE>
+auto print_my_array( std::array<T, SIZE> &ar, const char *name_array) -> void{
+
+    int i{0};
+    for(const T &val: ar){
+        std::cout << name_array << "[" << i++ << "] = " << val << std::endl;
+    }
+}
+
 
 int main()
 {
@@ -47,8 +58,19 @@ int main()
         sum = std::accumulate(matrix.at(i).begin(), matrix.at(i).end(), sum);
     }
 
+    std::array<float, numRows> horSum{};
+    std::array<float, numCols> verSum{};
+    for(int i{0}; i<numRows; i++){
+        for(int j{0}; j<numCols; j++){
+            horSum.at(i) += matrix.at(i).at(j);
+            verSum.at(j) += matrix.at(i).at(j);
+        }
+    }
+
     // TODO: Display the sums
     std::cout << "Matrix summe = " << sum << std::endl;
+    print_my_array(horSum, "horSum");
+    print_my_array(verSum, "verSum");
 
     return 0;
 }
