@@ -2,6 +2,7 @@
 #include <memory>
 
 #define mypointer std::shared_ptr
+//#define mypointer std::unique_ptr // OK NUR wenn bei printValues das Argument als Referenz gegeben ist: printValues(mypointer<MyVector> &pMyVec)
 
 struct MyVector {
   int mNum = 0;

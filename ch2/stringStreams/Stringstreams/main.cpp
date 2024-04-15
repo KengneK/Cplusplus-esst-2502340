@@ -81,7 +81,7 @@ auto test_4(std::array<int, SIZE> & ar, std::stringstream & ss) -> void{
 #elif(block_test_4 == 3) // NOT OK
     std::cout << block_test_4 << std::endl;
     ss << "30 25 ";    // espace a la fin important. Si non 70.3 de la ligne suivante est inserée dans ss en etant collé a 25 (donc on a 2570.3) et l'orde de l'extraction on a 2570
-    ss << "70.3";      // comme il n'y a pas d'espace a la fin de 70.3 et au debut de EtwasText alors les 2
+    ss << "70.3";      // comme il n'y a pas d'espace a la fin de 70.3 ou au debut de EtwasText alors les 2
     ss << "EtwasText"; // données seront colées et interpretées comme une seul. le resutat est 70.3EtwasText 
                        // avec  l'ordre d'extration ci dessous, on ne pourra pa extraire un float a partir du resultat. Par contre on pourrai extraire un string  comme au cas block_test_4 ==2
     ss >> ar[0];
