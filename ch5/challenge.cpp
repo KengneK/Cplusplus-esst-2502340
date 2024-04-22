@@ -16,75 +16,135 @@ enum CreditCardState {
 
 
 struct CreditCard {
+
+public:
+    CreditCard();
+    CreditCard(CreditCardState &State, int &Balance);
+    void showBalance() const;
+    void set_state(CreditCardState const & state);
+    CreditCardState const & get_state() const;
+    int get_balance() const;
+    void set_balance(int value);
+    void update_balance(int value, bool withdraw = true); // withdraw = true -> Auszahlung
+
+
+private:
     CreditCardState mState = CreditCardState::New;
     int mBalance = 100;
 };
 
+CreditCard::CreditCard(): mState{CreditCardState::New}, mBalance{100}
+{}
+CreditCard::CreditCard(CreditCardState &state, int &balance):mState{state}, mBalance{balance}
+{}
+void CreditCard::showBalance() const{
+    std::cout << "Balance: " << mBalance << std::endl;
+}
+void  CreditCard::set_state(CreditCardState const & state){
+    mState = state;
+}
+CreditCardState const & CreditCard::get_state() const{
+    return mState;
+}
+int CreditCard::get_balance() const{
+    return mBalance;
+}
+void CreditCard::set_balance(int value){
+    mBalance = value;
+}
+void CreditCard::update_balance(int value, bool withdraw ){
+    if(withdraw){  mBalance -= value;}
+    else{ mBalance += value;}
+}
+
+
 struct Customer {
+public:
+    Customer();
+    Customer(CustomerState &state, CreditCard &creditcard);
+    void set_state(CustomerState const & state);
+    void set_CreditCardState( CreditCardState const & state);
+    bool verifyStatus() const ;
+    void withdrawMoney(const int amnt);
+    void showBalance() const;
+
+private:
     CustomerState mState = CustomerState::New;
     CreditCard mCreditcard;
 };
 
-bool verifyStatus(const Customer &cust)
+Customer::Customer(): mState{CustomerState::New}, mCreditcard{CreditCard()}
+{}
+Customer::Customer(CustomerState &state, CreditCard &creditcard): mState{state}, mCreditcard{creditcard}
+{}
+void Customer::set_state(CustomerState const & state){
+    mState = state;
+}
+
+void Customer::set_CreditCardState(CreditCardState const & state){
+    mCreditcard.set_state(state);
+}
+
+bool Customer::verifyStatus() const
 {
-    if(cust.mCreditcard.mState != CreditCardState::Valid)
+    if(mCreditcard.get_state() != CreditCardState::Valid)
         return false;
 
-    if(cust.mState == CustomerState::Premium)
+    if(mState == CustomerState::Premium)
         return true;
 
-    if(cust.mCreditcard.mBalance < 0)
+    if(mCreditcard.get_balance() <0)
         return false;
 
     return true;
 }
 
-void withdrawMoney(Customer &cust, const int amnt)
+void Customer::withdrawMoney(const int amnt)
 {
-    if( !verifyStatus(cust) )
+    if( !verifyStatus() )
     {
         std::cout << "Die Transaktion kann leider nicht durchgefuehrt werden." << std::endl;
         return;
     }
-
-    cust.mCreditcard.mBalance -= amnt;
+    mCreditcard.update_balance(amnt);
+}
+void Customer::showBalance() const{
+    mCreditcard.showBalance();
 }
 
-void showBalance(const CreditCard &card)
-{
-    std::cout << "Balance: " << card.mBalance << std::endl;
-}
+
 
 int main()
 {
-    Customer peter;
-    Customer john;
+    Customer peter{};
+    Customer john{};
 
-    peter.mState = CustomerState::Premium;
-    john.mState = CustomerState::Standard;
-    peter.mCreditcard.mState = CreditCardState::Valid;
-    john.mCreditcard.mState = CreditCardState::Valid;
+    peter.set_state(CustomerState::Premium);
+    john.set_state(CustomerState::Standard);
 
-    std::cout << "Peter:"  << std::endl;
-    showBalance(peter.mCreditcard);
-    std::cout << "John:"  << std::endl;
-    showBalance(john.mCreditcard);
+    peter.set_CreditCardState(CreditCardState::Valid);
+    john.set_CreditCardState(CreditCardState::Valid);
+
+    std::cout << "Peter:";
+    peter.showBalance();
+    std::cout << "John:" ;
+    john.showBalance();
 
     std::cout << "Each is going to withdraw some Money: First 50, then 100 and finally 200."  << std::endl;
-    withdrawMoney(john, 50);
-    withdrawMoney(peter, 50);
+    john.withdrawMoney(50);
+    peter.withdrawMoney(50);
 
-    withdrawMoney(john, 100);
-    withdrawMoney(peter, 100);
+    john.withdrawMoney(100);
+    peter.withdrawMoney(100);
 
-    withdrawMoney(john, 200);
-    withdrawMoney(peter, 200);
+    john.withdrawMoney(200);
+    peter.withdrawMoney(200);
 
     std::cout << "Balance after withdrawing:" << std::endl;
-    std::cout << "Peter:"  << std::endl;
-    showBalance(peter.mCreditcard);
-    std::cout << "John:"  << std::endl;
-    showBalance(john.mCreditcard);
+    std::cout << "Peter:";
+    peter.showBalance();
+    std::cout << "John:" ;
+    john.showBalance();
 
 
     return 0;
