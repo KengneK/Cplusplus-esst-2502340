@@ -3,8 +3,9 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++.exe Aktive Datei kompilieren",
-			"command": "C:\\Users\\linkedin\\Downloads\\MinGW\\bin\\g++.exe",
+			"label": "MC/C++: g++.exe Aktive Datei kompilieren",
+			//"command": "C:\\Users\\linkedin\\Downloads\\MinGW\\bin\\g++.exe",
+			"command": "C:\\x86_64-12.2.0-release-posix-seh-rt_v10-rev0\\mingw64\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
