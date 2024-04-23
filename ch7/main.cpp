@@ -19,7 +19,9 @@ int main()
         std::cout << "Zookeeper is busy feeding one animal." << std::endl;
     }
 
-    zookeeper = elefant->releaseZooKeeper();
+    //zookeeper = elefant->releaseZooKeeper();
+    zookeeper = std::move(elefant->releaseZooKeeper());// Besser
+
 
     if(zookeeper)
     {
@@ -30,13 +32,15 @@ int main()
 
     std::cout << "Zookeeper feeding the giraffe." << std::endl;
     giraffe->catchFoodFrom( std::move(zookeeper) );
-    zookeeper = giraffe->releaseZooKeeper();
+    //zookeeper = giraffe->releaseZooKeeper();
+    zookeeper = std::move(giraffe->releaseZooKeeper());
 
     zookeeper->printResources();
 
     std::cout << "Zookeeper feeding the lion." << std::endl;
     lion->catchFoodFrom( std::move(zookeeper) );
-    zookeeper = lion->releaseZooKeeper();
+    //zookeeper = lion->releaseZooKeeper();
+    zookeeper = std::move(lion->releaseZooKeeper());
 
     std::cout << "Zookeeper fed every animal." << std::endl;
     zookeeper->printResources();
