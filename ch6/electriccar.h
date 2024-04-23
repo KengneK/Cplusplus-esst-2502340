@@ -6,10 +6,9 @@
 class ElectricCar : public PKW
 {
 public:
+    ElectricCar();
 
     void accelerate(const float seconds) override;
-
-    ElectricCar();
 
 private:
 

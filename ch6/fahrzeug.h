@@ -8,6 +8,7 @@ public:
     Fahrzeug();
 
     // TODO: Virtualize accelerate as pure method 
+    virtual void accelerate(const float seconds) = 0;
 
     void showValues() const;
 

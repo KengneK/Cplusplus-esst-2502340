@@ -8,6 +8,8 @@ class PKW : public Fahrzeug
 public:
     PKW();
 
+    //virtual void accelerate(const float seconds) override;
+
     void drive(const float seconds);
 
     void showValues() const;
