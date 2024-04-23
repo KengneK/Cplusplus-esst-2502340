@@ -78,6 +78,11 @@ int main()
 
     auto ptr1 = std::make_unique<lil::vector>();
 
+    // von mir
+    //auto ptr1 = new lil::vector();
+    //lil::vector *ptr1 = new lil::vector();
+    // end von mir
+
     ptr1->push_back(42);
 
     if(ptr1)
@@ -89,7 +94,7 @@ int main()
 
     }
 
-    /// auto ptr2 = ptr1; // Unique does not like being copied!
+    /// auto ptr2 = ptr1; // Unique does not like being copied! Ceci est impossible si ptr1 est un unique_ptr
     auto ptr2 = std::move(ptr1); // But moving is okay :-)
 
     if(ptr2)
@@ -101,10 +106,34 @@ int main()
 
     }
 
+    std::cout << "After move" << std::endl;
+
     if(!ptr1)
     {
         std::cout << "ptr1 is not pointing to the object anymore." << std::endl;
     }
+
+
+//von mir
+    if (ptr1)
+    {
+        ptr1->push_back(32);
+        std::cout << "ptr1 has the vector with values: " << std::endl;
+        for (int i = 0; i < ptr1->getSize(); i++) {
+            std::cout << (*ptr1)[i] << std::endl;
+        }
+
+    }
+
+    if (ptr2)
+    {
+      std::cout << "ptr2 has the vector with values: " << std::endl;
+        for (int i = 0; i < ptr2->getSize(); i++) {
+            std::cout << (*ptr2)[i] << std::endl;
+        }
+
+    }
+    //end von mir
 
     return 0;
 }

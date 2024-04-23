@@ -21,7 +21,13 @@ namespace lil
             }
 
             tempData[mSize] = val;
-            delete mData; // deleting nullptr does not make it crash
+            delete mData; // deleting nullptr does not make it crash// Ce delete permet de desallouer la memoire resersé au push_back precedent. sans lui, on obtient dans le for suivant les valeur contenue apres le push_back precedent
+
+            // BLOCK VON MIR
+            std::cout << "Dans push_back: les valeur presedente dans mData sont:";
+            for(int i {0}; i<mSize; i++){ std::cout << mData[i] << " ";} std::cout << std::endl;
+            // FIN BLOCK VON MIR
+
             mData = tempData;
             mSize++;
         }
@@ -52,6 +58,23 @@ int main()
     lilVec.push_back(val);
 
     std::cout << lilVec[0] << std::endl;
+
+    // von mir
+    stdVec.push_back(52);
+    lilVec.push_back(63);
+    stdVec.push_back(-52);
+    lilVec.push_back(610);
+
+    for(int i{0}; i<3; i++){
+        std::cout<< "stdVec["<< i << "] = " <<stdVec[i] << std::endl;
+    }
+
+    std::cout << std::endl;
+    for(int i{0}; i<3; i++){
+        std::cout<< "lilVec["<< i << "] = " <<lilVec[i] << std::endl;
+    }
+
+    //fin von mir
 
     return 0;
 }
