@@ -41,7 +41,7 @@ void addElement(const int value, bool add_front = false)
     }
 
     std::shared_ptr<SimpleNode> current_Node {list->mNext};
-    while(current_Node->mNext != nullptr){
+    while(current_Node->mNext != nullptr){ // current_Node->mNext oder current_Node->mNext.get()
       current_Node = current_Node->mNext;
     }
     current_Node->mNext = new_Node;
