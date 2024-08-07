@@ -21,7 +21,7 @@ void addElement(const int value, bool add_front = false)
 
   //std::cout << "neu value = " << new_Node->mItem << " next = " << new_Node->mNext << std::endl;
 
-  if(new_Node == nullptr){
+  if(new_Node == nullptr){ // new_Node oder new_Node.get()
     std::cout << "ERROR: element could not be created !" <<std::endl;
     exit(EXIT_FAILURE);
   }
