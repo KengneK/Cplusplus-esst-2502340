@@ -10,6 +10,7 @@ std::shared_ptr<SimpleNode> list;
 
 void addElement(const int value, bool add_front = false)
 {
+  //std::cout << list << " " << list.get() << " " << std::endl;
   
 	// TODO: Code that appends a value to the linked list 
 
@@ -25,7 +26,7 @@ void addElement(const int value, bool add_front = false)
     exit(EXIT_FAILURE);
   }
 
-  if(list == nullptr){
+  if(list == nullptr){ // list oder list.get()
     list = std::shared_ptr<SimpleNode>( new SimpleNode{});
   }
 
@@ -50,13 +51,13 @@ void addElement(const int value, bool add_front = false)
 void printList()
 {
 	// TODO: Print all the list items
-  if(list == nullptr || list->mNext == nullptr){
+  if(list == nullptr || list->mNext == nullptr){ // list oder list.get() und list->mNext  oder list->mNext.get()
     std::cout << "List ist empty!" << std::endl;
     return;
   }
 
   std::shared_ptr<SimpleNode> current_Node {list->mNext};
-  while (current_Node != nullptr){
+  while (current_Node != nullptr){ // current_Node oder current_Node.get()
     std::cout << current_Node->mItem << " -> ";
     current_Node = current_Node->mNext;
   }
